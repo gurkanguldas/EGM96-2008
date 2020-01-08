@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Main {
 public static void main(String[] args) {
 	String data ="E:\\Desktop\\DengelemedeOzelKonular\\Jeoit_Modelleme\\Odev_1\\data1.txt",
-		    EGM ="E:\\Desktop\\DengelemedeOzelKonular\\Jeoit_Modelleme\\egm96_to360.ascii";
+		EGM ="E:\\Desktop\\DengelemedeOzelKonular\\Jeoit_Modelleme\\EGM2008_to2190_ZeroTide";
 		    	
 	Gravitation Jeoid = new Gravitation();
 	Jeoid.setData(data);
@@ -21,10 +21,14 @@ public static void main(String[] args) {
 	Elipsoid.setData(data);
 	double ElipPot[]=Elipsoid.Potential();
 	
-
+	Gravity Normal = new Gravity();
+	double Gry[]=Normal.MediumGravity(data);
 	
 	for(int j=0 ; j<20 ; j++) 
-		System.out.println("W["+(j+1)+"]=  "+df.format(JeoPot[j])+"     U["+(j+1)+"]=  "+df.format(ElipPot[j])+"     T["+(j+1)+"]=  "+(JeoPot[j]-ElipPot[j]));
+		System.out.println("W["+(j+1)+"]=  "+df.format(JeoPot[j])+
+				     "     U["+(j+1)+"]=  "+df.format(ElipPot[j])+
+				    "     T["+(j+1)+"]=  "+(JeoPot[j]-ElipPot[j])+
+				    "     N["+(j+1)+"]=  "+((JeoPot[j]-ElipPot[j]))/Gry[j]);
 		
 }
 }
