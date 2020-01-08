@@ -422,3 +422,31 @@ class ElipsoidalGravitation{
 		return U;
 		}
 }
+class Gravity{
+	public double[] MediumGravity(String Uzanti) {
+		double a =6378137.0,
+			   f =1./298.257223563,
+			   w =7.292115e-5,
+			   GM=3.986004418e+14;
+		double e  = f*(2.-f);
+		double e2 = 1./(1./(2.*f-f*f)-1.);
+		double m = w*w*a*a*a*(1-f)/GM;
+		double Ge=GM/a/(a*(1-f))*(1-3./2.*m-3./14.*m*e2);
+		double Gk=GM/a/a*(1+m+3./7.*e2*m);
+		double k =a*(1.-f)*Gk/a/Ge-1;
+
+		Class math = new Class();
+		Read text = new Read(Uzanti);
+		
+		int length=text.getY().length;
+		
+		double mediumGravity[]=new double[length];
+		
+		for(int i=0 ;i<length; i++) {
+		double[]cog=math.BL(text.getY()[i], text.getX()[i],33);
+		double G0=Ge*(1.+math.sin(cog[0])*math.sin(cog[0])*k)/Math.sqrt(1.-e*math.sin(cog[0])*math.sin(cog[0]));
+		mediumGravity[i] =G0*(1.-2./a*(1+f+m-2.*f*math.sin(cog[0])*math.sin(cog[0]))*text.geth()[i]+3./text.geth()[i]*text.geth()[i]/a/a);
+		}
+		return mediumGravity;
+	}
+}
